@@ -1,0 +1,24 @@
+{
+  "name": "wechat-light-v2",
+  "palette": {
+    "A": "#2F6BB8",
+    "B": "#D97706",
+    "neutral": "#111827",
+    "text": "#2D3748",
+    "text2": "#718096",
+    "border": "#E5E9F0",
+    "accent": "#6C9EE8",
+    "quote_bg": "#F0F5FC",
+    "quote_text": "#3D5A8C",
+    "code_inline_bg": "#F0F5FC",
+    "code_inline_text": "#4A7BC4",
+    "link": "#3B7DD8",
+    "code_bg": "#1E1E1E",
+    "code_text": "#D4D4D4"
+  },
+  "terms": {
+    "A": ["DeepSeek Harness", "PTC", "DeepSeek"],
+    "B": ["Claude Code", "Dynamic Workflows", "Dynamic Workflow"]
+  },
+  "emphasis": "#2F6BB8"
+}
