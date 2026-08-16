@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# 凭证与密钥（永不入库）
+.env
+.env.*
+credentials*
+*.token
+.token_cache*
+*secret*
+*.pem
+*.key
+
+# 本地工具链
+*.local
+node_modules/
+
+# 编辑器
+.idea/
+.vscode/
+*.swp
