@@ -95,6 +95,12 @@ python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width
 
 完整微信表格结构见 `adapters/wechat/` 手册。
 
+### 小红书信息图风格（2026-08-17 沉淀）
+
+- 规范：`design-system/xhs-infographic-style.md`——白底 + 冷暖双色 token、5 级文字层级、卡片/结论条/**箭头标准画法**（垂直箭头翼角水平排列）、布局规则、内容结构模板
+- 检查：`engines/svg/svg_check.py <file.svg>...`（画布余量/文本溢出/无卡包含，`--strict`/`--no-title`/`--ignore`）
+- 工作流：SVG 写完 → `svg_check.py` 检查 → `html_to_image.py` 渲染 → 发布
+
 ## 平台成熟度
 
 | 平台 | 成熟度 | 链路 | 手册 |
