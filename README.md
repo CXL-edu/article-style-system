@@ -84,6 +84,16 @@ python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width
 | `==金句==` | 金句强调（正文 A 色加粗，引用框内深色） |
 | `**粗体**` | 普通强调（深色，不加彩） |
 | `` `代码` `` | 行内代码（浅蓝底） |
+| 原生 HTML 块（`<section` 等开头行） | **原样透传**，不包 `<p>`（微信端 section/table 结构必需，2026-08-17 实测） |
+
+### 表格能力（2026-08-17 实测沉淀）
+
+| 配置 | 说明 |
+|---|---|
+| `table_min_width: "900px"`（palette.json） | 表格固定宽度，配合外层 `overflow-x:auto` 容器实现移动端横向滑动 |
+| 原生 HTML 表格块 | 直接在 md 里写 `<section>` + `<table>` HTML（需渲染器透传支持），适合微信场景：外层 section 滑动容器 + 内层百分比撑宽 + table 自身 border-radius（separate 模式） |
+
+完整微信表格结构见 `adapters/wechat/` 手册。
 
 ## 平台成熟度
 
