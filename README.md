@@ -28,10 +28,11 @@ article-style-system/
 │   ├── svg-to-image/              #   SVG 模板规范（2.35:1 原生封面、2x 高清）
 │   ├── image-pipeline/            #   Pillow 信息图流水线规范
 │   └── motion/                    #   HTML 动画引擎指引（跨 Agent 复用）
-└── adapters/                      # ★ 适配层（平台定制化：尽情定制）
-    ├── wechat/README.md           #   公众号：API 草稿 + 网页版发表（最成熟 🟢）
-    ├── xiaohongshu/README.md      #   小红书：长图 + MCP 全自动发布（次之 🟡）
-    └── x/README.md                #   X：Article 富文本 + 普通推文 + 长图兜底（已实测 🟡）
+├── adapters/                      # ★ 适配层（平台定制化：尽情定制）
+│   ├── wechat/README.md           #   公众号：API 草稿 + 网页版发表（权限相关 🟡）
+│   ├── xiaohongshu/README.md      #   小红书：长图 + MCP 全自动发布（次之 🟡）
+│   └── x/README.md                #   X：Article 富文本 + 普通推文 + 长图兜底（已实测 🟡）
+└── docs/                          # ★ 内容生产架构与脱敏 Schema
 ```
 
 ### 各层职责
@@ -63,6 +64,16 @@ python3 adapters/x/scripts/create_article_draft.py \
 # 5. SVG → 高清封面（公众号封面 2.35:1，2x 渲染）
 python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width 1600 --height 681 --scale 2
 ```
+
+### 内容生产文档
+
+本仓库只保存脱敏、可复用的技术层，不保存个人账号、真实内容、发布记录或登录态：
+
+- [`docs/content-pipeline.md`](docs/content-pipeline.md) — 内容母稿 → 平台适配 → 图片 → 短视频 → 发布门禁
+- [`docs/content-package-schema.md`](docs/content-package-schema.md) — 内容包命名、`content_id`、目录和状态字段
+- [`adapters/x/README.md`](adapters/x/README.md) — X Article 富文本草稿适配和验证规则
+
+私有运营记忆、平台实际状态和每个主题的内容包应放在本地 Obsidian vault；GitHub 只实现通用引擎、适配器、模板和测试。
 
 ### palette.json 示例
 
@@ -111,7 +122,7 @@ python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width
 
 | 平台 | 成熟度 | 链路 | 手册 |
 |---|---|---|---|
-| 公众号 | 🟢 最成熟 | 渲染器 → API 草稿 → 网页版发表（全自动） | `adapters/wechat/` |
+| 公众号 | 🟡 权限相关 | 渲染器 → API 草稿 → 网页版发表（账号权限决定） | `adapters/wechat/` |
 | 小红书 | 🟡 次之 | 渲染器 → 长图 → MCP 全自动发布 | `adapters/xiaohongshu/` |
 | X Article | 🟡 已实测 | HTML 片段 → Playwright MCP → Article 草稿 → 审核发布 | `adapters/x/` |
 | X 普通推文 | 🟢 可用 | 短文案 → API / 浏览器通道 | `adapters/x/` |
