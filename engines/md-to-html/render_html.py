@@ -148,7 +148,7 @@ def _make_inline(cfg: dict):
     return _inline
 
 
-def _md_table(lines, _inline) -> str:
+def _md_table(lines, _inline, cfg) -> str:
     P = DEFAULT_CONFIG["palette"]  # 表结构中性，用默认灰阶
     rows = []
     for ln in lines:
@@ -164,8 +164,10 @@ def _md_table(lines, _inline) -> str:
     ncol = max(len(r) for r in rows)
     rows = [r + [""] * (ncol - len(r)) for r in rows]
 
+    tmin = cfg.get("table_min_width", "")  # 如 "900px" → 移动端容器横向滑动
+    tstyle = f'width:{tmin};' if tmin else 'width:100%;'
     html = ['<div style="overflow-x:auto;margin:24px 0;border-radius:12px;border:1px solid #E5E9F0;background:#FFFFFF;">',
-            '<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.6;">']
+            f'<table style="{tstyle}border-collapse:collapse;font-size:15px;line-height:1.6;">']
     for ri, row in enumerate(rows):
         tag = "th" if ri == 0 else "td"
         if ri == 0:
@@ -211,7 +213,7 @@ def md_to_html(md_text: str, cfg: dict = None) -> str:
             tbl = []
             while i < n and lines[i].strip().startswith("|"):
                 tbl.append(lines[i]); i += 1
-            out.append(_md_table(tbl, _inline))
+            out.append(_md_table(tbl, _inline, cfg))
             continue
 
         # 空行
@@ -322,6 +324,13 @@ def md_to_html(md_text: str, cfg: dict = None) -> str:
                 f'<code style="font-family:Menlo,Consolas,monospace;font-size:13.5px;'
                 f'line-height:1.3;color:{P["code_text"]};">{code_html}</code></pre>'
             )
+            continue
+
+        # 原生 HTML 块透传（section/table 等微信兼容结构：不包 <p>，避免结构破坏）
+        if line.lstrip().startswith("<") and re.match(r"</?[a-zA-Z]", line.lstrip()):
+            flush_list(li); li = []
+            out.append(line)
+            i += 1
             continue
 
         # 普通段落
