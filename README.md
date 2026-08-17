@@ -31,7 +31,7 @@ article-style-system/
 └── adapters/                      # ★ 适配层（平台定制化：尽情定制）
     ├── wechat/README.md           #   公众号：API 草稿 + 网页版发表（最成熟 🟢）
     ├── xiaohongshu/README.md      #   小红书：长图 + MCP 全自动发布（次之 🟡）
-    └── x/README.md                #   X：CJK 加权限制 + 长图兜底（待优化 🔴）
+    └── x/README.md                #   X：Article 富文本 + 普通推文 + 长图兜底（已实测 🟡）
 ```
 
 ### 各层职责
@@ -51,10 +51,16 @@ python3 engines/md-to-html/render_html.py article.md --out article.html
 # 2. 自定义对比主题（A/B 两色 + 术语映射）
 python3 engines/md-to-html/render_html.py article.md --config my-palette.json --out article.html
 
-# 3. HTML → 长图（小红书 / X 用：1080 宽，最长 8192px）
+# 3. HTML → 长图（小红书 / X 长图兜底：1080 宽，最长 8192px）
 python3 engines/html-to-image/html_to_image.py article.html --out article.png --width 1080 --height 8192 --scale 2
 
-# 4. SVG → 高清封面（公众号封面 2.35:1，2x 渲染）
+# 4. 创建 X Article 草稿（真实 Article，不是长图推文）
+python3 adapters/x/scripts/create_article_draft.py \
+  --title "文章标题" \
+  --cover ./cover.png \
+  --body-html ./article.html
+
+# 5. SVG → 高清封面（公众号封面 2.35:1，2x 渲染）
 python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width 1600 --height 681 --scale 2
 ```
 
@@ -107,7 +113,9 @@ python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width
 |---|---|---|---|
 | 公众号 | 🟢 最成熟 | 渲染器 → API 草稿 → 网页版发表（全自动） | `adapters/wechat/` |
 | 小红书 | 🟡 次之 | 渲染器 → 长图 → MCP 全自动发布 | `adapters/xiaohongshu/` |
-| X | 🔴 待优化 | 渲染器 → 长图 → 推文（CJK 加权字符限制，长图兜底） | `adapters/x/` |
+| X Article | 🟡 已实测 | HTML 片段 → Playwright MCP → Article 草稿 → 审核发布 | `adapters/x/` |
+| X 普通推文 | 🟢 可用 | 短文案 → API / 浏览器通道 | `adapters/x/` |
+| X 长图 | 🟡 兜底 | 渲染器 → 长图 → 推文 | `adapters/x/` |
 
 ## 迭代纪律
 
