@@ -155,6 +155,16 @@ Hermes 本地 skill 中的脚本是运行适配层；本目录中的脚本是经
 | 发布通道 | API 草稿 / 网页 | MCP | Playwright MCP 草稿 + X 编辑器发布 |
 | 主要限制 | 未认证账号发布能力 | 图片比例与文字溢出 | 编辑器 DOM、账号 Article 权限 |
 
+## X 视频补充
+
+X 视频不是 X Article 的同一发布形态。通用视频产物由 `engines/motion/render_asset_slide_video.py` 生成；平台发布适配器只负责已登录环境中的上传与提交。
+
+- 浏览器或 HTTP 适配器返回 `success=true` 只能记录为提交层证据；
+- 必须取得公开 `https://x.com/<user>/status/<id>` URL；
+- 必须回读该 status 并确认媒体类型为视频；
+- 找不到公开 URL 时，状态只能写“失败”或“公开状态未核验”，不能写“已发布”；
+- 不允许在视频上传失败后静默改发图片或纯文本。
+
 ## 踩坑日志
 
 - 2026-08-17：完成真实 X Article 端到端测试：60 个正文 blocks、1 张封面、6 张正文图，图片位置逐一验证正确。

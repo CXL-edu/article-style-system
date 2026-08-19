@@ -1,7 +1,7 @@
 # motion —— HTML 动画引擎指引
 
 > 引擎层 · 平台无关。HTML/CSS/JS 动画（MG 动画、开场动画、数据动效）的生产指引。
-> **实现由独立项目 `agent-motion-skills` 承载，本仓库只做指引与接口约定，不复制实现。**
+> HTML/CSS/JS 动画实现可由独立项目 `agent-motion-skills` 承载；本仓库同时提供参数化的静态信息图 + 音频竖屏成片入口 `render_asset_slide_video.py`。两者共享 1080×1920 / H.264 输出契约，但不复制用户私有内容。
 
 ## 用途
 

@@ -29,7 +29,7 @@ The content master is the source of truth for facts, evidence, terminology, clai
 4. **Plan visuals** before rendering platform assets.
 5. **Generate platform outputs** with independent adapters.
 6. **Render and validate assets** for dimensions, overflow, and content consistency.
-7. **Build the video package**: voiceover script, storyboard, captions, audio, and 1080×1920 MP4.
+7. **Build the video package**: voiceover script, storyboard, captions, audio, and 1080×1920 MP4. The reusable asset-slide implementation is documented in [`docs/content-video-pipeline.md`](content-video-pipeline.md).
 8. **Create drafts** and record output status.
 9. **Publish only through an explicit gate** appropriate to the platform.
 10. **Record results** outside this public repository in the private operating vault.

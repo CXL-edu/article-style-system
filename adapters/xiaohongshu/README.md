@@ -43,6 +43,18 @@ article.md
 - 账号凭证和浏览器登录态只存于本地配置，不入库
 - 详见 Hermes skill：xiaohongshu-publishing / api-free-social-publishing
 
+## 视频发布补充
+
+视频与图文共享 1080 宽竖屏资产，但视频发布单独记录：
+
+1. 先用 `engines/motion/render_asset_slide_video.py` 生成并验收本地 MP4；
+2. 登录态检查、标题长度检查和原创声明由本地发布适配器负责；
+3. `success=true`、编辑器跳转或上传 blob 只记录为命令层/提交层证据；
+4. 只有公开笔记 URL 或账号笔记列表能证明公开发布成功；
+5. 若只有 `published=true` 而没有公开页面，状态写“提交成功，公开状态待核验”。
+
+真实账号、浏览器 profile、Cookie 和发布记录留在私有 vault，不进入仓库。
+
 ## 踩坑日志
 
 - 命令返回成功不等于公开笔记已发布；发布后必须保存公开 URL 或账号笔记列表证据。
