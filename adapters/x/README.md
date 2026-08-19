@@ -90,6 +90,20 @@ python3 adapters/x/scripts/create_article_draft.py \
 
 这些选择器属于 X 当前编辑器实现，不是稳定 API。每次更新 X 后应重新运行最小草稿测试。
 
+## 富文本兼容契约（2026-08 实测）
+
+X Article 支持的稳定表达不是“完整 Markdown/CSS”，而是一组平台可保留的富文本 block：
+
+- 短概念模型 / 箭头链路 → `<blockquote>` + 显式换行；
+- 真正的程序步骤 → `<ul>` / `<ol>`；
+- 行内技术 token → `<strong>`；
+- `h2` 保留；`h3` 在适配层降级为粗体段落；
+- 不依赖 `<pre>`、`<code>`、`<hr>`、等宽空格对齐或复杂 CSS。
+
+正文注入必须是真实点击 composer 后 `Meta+V`，不能在 `browser_evaluate` 中调用 `execCommand('paste')`，也不能用整篇 `insertHTML` 代替 Draft.js 输入。
+
+图片必须按唯一正文锚点插入；发布前后都要检查图片数量、图片前后文本、标题层级、引用框和列表结构。最终状态以公开 Article URL 的 DOM 为准，不以脚本退出码、草稿保存或编辑器填充成功作为公开发布证据。
+
 ## 关键坑点
 
 ### 正文注入
