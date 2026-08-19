@@ -86,6 +86,7 @@ python3 engines/html-to-image/html_to_image.py cover.svg --out cover.png --width
 
 - [`docs/content-pipeline.md`](docs/content-pipeline.md) — 内容母稿 → 平台适配 → 图片 → 短视频 → 发布门禁
 - [`docs/content-video-pipeline.md`](docs/content-video-pipeline.md) — manifest 驱动的 1080×1920 资产视频渲染和公开发布证据门禁
+- [`docs/repository-routing.md`](docs/repository-routing.md) — 先查现有仓库、remote 和架构，禁止按本地目录名新建重复远端
 - [`docs/content-package-schema.md`](docs/content-package-schema.md) — 内容包命名、`content_id`、目录和状态字段
 - [`adapters/x/README.md`](adapters/x/README.md) — X Article 富文本草稿适配和验证规则
 
