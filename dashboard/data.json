@@ -35,7 +35,10 @@
       "topic_id": "20260820-02",
       "topic": "LLM-as-a-Verifier：让 Agent 不只会做，还会选、会停、会纠错",
       "content_date": "2026-08-20",
-      "note": "图文三平台均有发布记录；小红书新版已由账号列表和登录态详情确认，但匿名直链仍待补。短视频 MP4 已生成，尚未发布。",
+      "note": "图文三平台均有发布记录；小红书新版已由账号列表和登录态详情确认，但匿名直链仍待补。短视频 MP4 已生成并已提交到微信视频号，视频号列表显示原创审核中。",
+      "extra_publications": [
+        {"platform": "微信视频号", "format": "视频", "status": "submitted", "published_at": "2026-08-21 01:44", "evidence": "视频号列表回读标题、简介和原创审核中状态；独立公开 URL 待平台提供"}
+      ],
       "cells": {
         "wechat_text": {"status": "published", "published_at": "2026-08-20 18:48", "url": "https://mp.weixin.qq.com/s/YNIePr4aij7DaIf_1muO2Q", "evidence": "公众号后台发表记录与公开 URL"},
         "wechat_video": {"status": "not_started"},
@@ -81,7 +84,10 @@
       "topic_id": "20260818-01",
       "topic": "Honcho 到底怎样形成长期记忆：从消息队列、表示层到 Dreaming 的源码解剖",
       "content_date": "2026-08-18",
-      "note": "公众号与 X Article 已公开；小红书图文曾发布但公开笔记链接待核验；视频尚未完成公开链接回填。",
+      "note": "公众号与 X Article 已公开；小红书图文曾发布但公开笔记链接待核验；视频号已有 Honcho 视频提交记录，公开链接和原创标记待核验。",
+      "extra_publications": [
+        {"platform": "微信视频号", "format": "视频", "status": "submitted", "published_at": "2026-08-21 01:47", "evidence": "视频号列表回读标题、简介和时间；原创标记暂未回读；独立公开 URL 待平台提供"}
+      ],
       "cells": {
         "wechat_text": {"status": "published", "published_at": "2026-08-19 23:40", "url": "https://mp.weixin.qq.com/s/qOY85NhYQMUMNfNsE2EwEw", "evidence": "公众号发表记录与公开 URL"},
         "wechat_video": {"status": "not_started"},
