@@ -105,6 +105,7 @@
 <script>
 const statusMeta = {
   published: {label:'✅ 已发布', cls:'published'},
+  public_link_verified: {label:'✅ 公开链接已核验', cls:'published'},
   published_unverified: {label:'🟡 已发布待公开链接', cls:'pending'},
   submitted: {label:'🟡 已提交待核验', cls:'pending'},
   not_started: {label:'⬜ 未发布', cls:'not-started'},
@@ -123,7 +124,7 @@ function renderCell(cell) {
 }
 function renderTopic(t) {
   const c=t.cells || {};
-  return `<tr><td><div class="topic-title">${safe(t.topic)}</div><div class="topic-id">${safe(t.topic_id)} · 内容日期 ${safe(t.content_date)}</div>${t.note ? `<div class="topic-note">${safe(t.note)}</div>` : ''}${t.extra_publications?.length ? `<div class="topic-note"><b>额外发布记录：</b>${t.extra_publications.map(x=>`${safe(x.platform)} ${safe(x.format)} · ${safe(x.published_at || '')} · ${safe(statusMeta[x.status]?.label || x.status)}`).join('；')}</div>` : ''}</td><td>${renderCell(c.wechat_text)}</td><td>${renderCell(c.wechat_video)}</td><td>${renderCell(c.x_text)}</td><td>${renderCell(c.x_video)}</td><td>${renderCell(c.xiaohongshu_text)}</td><td>${renderCell(c.xiaohongshu_video)}</td></tr>`;
+  return `<tr><td><div class="topic-title">${safe(t.topic)}</div><div class="topic-id">${safe(t.topic_id)} · 内容日期 ${safe(t.content_date)}</div>${t.note ? `<div class="topic-note">${safe(t.note)}</div>` : ''}${t.extra_publications?.length ? `<div class="topic-note"><b>额外发布记录：</b>${t.extra_publications.map(x=>`${safe(x.platform)} ${safe(x.format)} · ${safe(x.published_at || '')} · ${safe(statusMeta[x.status]?.label || x.status)}${x.url ? ` · <a target="_blank" rel="noopener" href="${encodeURI(x.url)}">🔗 打开视频号链接</a>` : ''}`).join('；')}</div>` : ''}</td><td>${renderCell(c.wechat_text)}</td><td>${renderCell(c.wechat_video)}</td><td>${renderCell(c.x_text)}</td><td>${renderCell(c.x_video)}</td><td>${renderCell(c.xiaohongshu_text)}</td><td>${renderCell(c.xiaohongshu_video)}</td></tr>`;
 }
 fetch('data.json').then(r=>r.json()).then(data=>{
   document.getElementById('updated').textContent='最近同步：'+data.updated_at.replace('T',' ');
