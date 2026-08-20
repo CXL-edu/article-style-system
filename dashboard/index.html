@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自媒体内容发布总览</title>
+<style>
+  :root {
+    --ink:#172033; --muted:#667085; --line:#e4e9f1; --bg:#f3f6fb;
+    --navy:#1d3154; --blue:#3f6fd8; --violet:#5c58c8; --green:#2d9b8b;
+    --published-bg:#e1f6e9; --published:#137547;
+    --pending-bg:#fff1d2; --pending:#9b6505;
+    --failed-bg:#ffe6e6; --failed:#b42318;
+    --not-bg:#eef1f5; --not:#667085; --na-bg:#f6f7f9; --na:#98a2b3;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Helvetica Neue",Arial,sans-serif; }
+  .page { max-width:2400px; margin:0 auto; padding:62px 64px 76px; }
+  .eyebrow { color:var(--blue); font-size:13px; font-weight:800; letter-spacing:2.4px; }
+  h1 { margin:12px 0 10px; font-size:42px; letter-spacing:-.8px; }
+  .subtitle { color:var(--muted); font-size:18px; line-height:1.6; max-width:950px; }
+  .topline { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+  .updated { color:#8a96a8; font-size:14px; white-space:nowrap; }
+  .stats { display:flex; gap:14px; flex-wrap:wrap; margin:34px 0 26px; }
+  .stat { background:#fff; border:1px solid var(--line); border-radius:13px; padding:13px 18px; box-shadow:0 5px 18px rgba(31,52,86,.05); color:var(--muted); font-size:14px; }
+  .stat strong { color:var(--ink); font-size:25px; margin-right:7px; }
+  .panel { background:#fff; border:1px solid var(--line); border-radius:17px; box-shadow:0 12px 32px rgba(31,52,86,.08); overflow:auto; }
+  table { width:100%; min-width:1850px; border-collapse:separate; border-spacing:0; table-layout:fixed; }
+  th,td { border-right:1px solid var(--line); border-bottom:1px solid var(--line); vertical-align:top; }
+  th:last-child, td:last-child { border-right:0; }
+  thead th { color:#fff; text-align:center; font-weight:750; }
+  thead tr:first-child th { padding:17px 12px 14px; font-size:17px; border-bottom:1px solid rgba(255,255,255,.22); }
+  thead tr:last-child th { padding:11px 8px 13px; font-size:14px; }
+  .h-topic { width:27%; background:var(--navy); }
+  .h-wechat { background:var(--blue); }
+  .h-x { background:var(--violet); }
+  .h-xhs { background:var(--green); }
+  tbody tr:nth-child(even) { background:#f9fbfe; }
+  tbody td { padding:17px 14px; font-size:14px; line-height:1.5; }
+  .topic-title { font-size:16px; font-weight:750; line-height:1.45; color:#273653; }
+  .topic-id { margin-top:8px; color:#8a96a8; font-size:12px; }
+  .topic-note { margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5; }
+  .cell { min-height:79px; }
+  .state { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:5px 9px; font-size:12px; font-weight:800; white-space:nowrap; }
+  .state.published { color:var(--published); background:var(--published-bg); }
+  .state.pending { color:var(--pending); background:var(--pending-bg); }
+  .state.failed { color:var(--failed); background:var(--failed-bg); }
+  .state.not-started { color:var(--not); background:var(--not-bg); }
+  .state.na { color:var(--na); background:var(--na-bg); }
+  .time { margin-top:8px; color:#667085; font-size:12px; }
+  .links { display:flex; flex-direction:column; gap:5px; margin-top:8px; }
+  a { color:#326bc8; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .evidence { margin-top:8px; color:#8995a7; font-size:11px; line-height:1.45; }
+  .legend { display:flex; gap:22px; flex-wrap:wrap; padding:21px 24px 23px; color:var(--muted); font-size:13px; }
+  .legend span { display:inline-flex; align-items:center; gap:7px; }
+  .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dot.published { background:#2ba56a; }.dot.pending { background:#e2a62b; }.dot.failed { background:#d15151; }.dot.not-started { background:#aeb8c6; }
+  .notes { margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .note { background:#fff; border:1px solid var(--line); border-radius:13px; padding:17px 20px; color:var(--muted); font-size:13px; line-height:1.65; }
+  .note strong { color:#344054; }
+  @media (max-width:900px) { .page { padding:34px 20px 48px; } h1 { font-size:32px; } .notes { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topline">
+    <div>
+      <div class="eyebrow">CONTENT PUBLICATION DASHBOARD</div>
+      <h1>自媒体内容发布总览</h1>
+      <div class="subtitle">一行一个主题；每个平台拆分为图文和视频。已发布单元格只放实际作品公开链接，平台回调或本地 MP4 不会被误记为公开发布。</div>
+    </div>
+    <div class="updated" id="updated">读取同步时间…</div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <section class="panel">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="h-topic">主题名称</th>
+          <th colspan="2" class="h-wechat">公众号</th>
+          <th colspan="2" class="h-x">X</th>
+          <th colspan="2" class="h-xhs">小红书</th>
+        </tr>
+        <tr>
+          <th class="h-wechat">图文</th><th class="h-wechat">视频</th>
+          <th class="h-x">图文</th><th class="h-x">视频</th>
+          <th class="h-xhs">图文</th><th class="h-xhs">视频</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="legend">
+      <span><i class="dot published"></i>已发布并有公开链接</span>
+      <span><i class="dot pending"></i>已提交 / 已发布待公开链接</span>
+      <span><i class="dot not-started"></i>未发布</span>
+      <span><i class="dot failed"></i>失败 / 阻塞</span>
+    </div>
+  </section>
+  <div class="notes">
+    <div class="note"><strong>本地与云端分工：</strong>本页只保存主题、状态、发布时间、平台作品 URL 和核验证据。MP4、完整标题/文案和本地文件路径仍在本地 Obsidian 与短视频看板中。</div>
+    <div class="note"><strong>链接门禁：</strong>“已发布”要求公开 URL 或平台公开作品列表证据；没有公开 URL 的平台会显示“待公开链接”，不会生成或猜测链接。</div>
+  </div>
+</div>
+<script>
+const statusMeta = {
+  published: {label:'✅ 已发布', cls:'published'},
+  published_unverified: {label:'🟡 已发布待公开链接', cls:'pending'},
+  submitted: {label:'🟡 已提交待核验', cls:'pending'},
+  not_started: {label:'⬜ 未发布', cls:'not-started'},
+  failed: {label:'❌ 失败 / 阻塞', cls:'failed'},
+  not_applicable: {label:'— 不适用', cls:'na'}
+};
+function safe(s) { const d=document.createElement('div'); d.textContent=s ?? ''; return d.innerHTML; }
+function renderCell(cell) {
+  cell = cell || {status:'not_started'};
+  const meta = statusMeta[cell.status] || statusMeta.not_started;
+  const links = [];
+  if (cell.url) links.push(`<a target="_blank" rel="noopener" href="${encodeURI(cell.url)}">🔗 打开作品</a>`);
+  if (cell.urls) cell.urls.forEach(x => links.push(`<a target="_blank" rel="noopener" href="${encodeURI(x.url)}">🔗 ${safe(x.label || '打开作品')}</a>`));
+  if (cell.evidence_url) links.push(`<a target="_blank" rel="noopener" href="${encodeURI(cell.evidence_url)}">查看核验证据</a>`);
+  return `<div class="cell"><span class="state ${meta.cls}">${meta.label}</span>${cell.published_at ? `<div class="time">时间：${safe(cell.published_at)}</div>` : ''}${links.length ? `<div class="links">${links.join('')}</div>` : ''}${cell.evidence ? `<div class="evidence">${safe(cell.evidence)}</div>` : ''}</div>`;
+}
+function renderTopic(t) {
+  const c=t.cells || {};
+  return `<tr><td><div class="topic-title">${safe(t.topic)}</div><div class="topic-id">${safe(t.topic_id)} · 内容日期 ${safe(t.content_date)}</div>${t.note ? `<div class="topic-note">${safe(t.note)}</div>` : ''}${t.extra_publications?.length ? `<div class="topic-note"><b>额外发布记录：</b>${t.extra_publications.map(x=>`${safe(x.platform)} ${safe(x.format)} · ${safe(x.published_at || '')} · ${safe(statusMeta[x.status]?.label || x.status)}`).join('；')}</div>` : ''}</td><td>${renderCell(c.wechat_text)}</td><td>${renderCell(c.wechat_video)}</td><td>${renderCell(c.x_text)}</td><td>${renderCell(c.x_video)}</td><td>${renderCell(c.xiaohongshu_text)}</td><td>${renderCell(c.xiaohongshu_video)}</td></tr>`;
+}
+fetch('data.json').then(r=>r.json()).then(data=>{
+  document.getElementById('updated').textContent='最近同步：'+data.updated_at.replace('T',' ');
+  document.getElementById('rows').innerHTML=data.topics.map(renderTopic).join('');
+  const all=data.topics.flatMap(t=>Object.values(t.cells||{}));
+  const published=all.filter(x=>x.status==='published').length;
+  const pending=all.filter(x=>['submitted','published_unverified'].includes(x.status)).length;
+  const failed=all.filter(x=>x.status==='failed').length;
+  document.getElementById('stats').innerHTML=`<div class="stat"><strong>${data.topics.length}</strong>个主题</div><div class="stat"><strong>${published}</strong>个公开已核验单元格</div><div class="stat"><strong>${pending}</strong>个待核验单元格</div><div class="stat"><strong>${failed}</strong>个失败 / 阻塞单元格</div>`;
+}).catch(err=>{ document.getElementById('rows').innerHTML=`<tr><td colspan="7">读取数据失败：${safe(err.message)}</td></tr>`; });
+</script>
+</body>
+</html>

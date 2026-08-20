@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-21T00:45:00+08:00",
+  "title": "自媒体内容发布总览",
+  "description": "按主题汇总三个内容平台的图文与视频发布状态、时间和公开作品链接。",
+  "platforms": [
+    {"id": "wechat", "name": "公众号"},
+    {"id": "x", "name": "X"},
+    {"id": "xiaohongshu", "name": "小红书"}
+  ],
+  "status_legend": {
+    "published": {"label": "已发布", "class": "published"},
+    "published_unverified": {"label": "已发布待公开链接", "class": "pending"},
+    "submitted": {"label": "已提交待核验", "class": "pending"},
+    "not_started": {"label": "未发布", "class": "not-started"},
+    "failed": {"label": "失败 / 阻塞", "class": "failed"},
+    "not_applicable": {"label": "不适用", "class": "na"}
+  },
+  "topics": [
+    {
+      "topic_id": "20260820-03",
+      "topic": "J-Space Cognition Suite：能力增强，还是把提示词叫成了机制？",
+      "content_date": "2026-08-20",
+      "note": "公众号文章已发表；当前公开页使用同一 URL，封面修改审核中。X、小红书和短视频尚未发布。",
+      "cells": {
+        "wechat_text": {"status": "published", "published_at": "2026-08-20", "url": "https://mp.weixin.qq.com/s/HgGj02h4OetJKWzPIrnJJg", "evidence": "公众号发表记录与公开 URL"},
+        "wechat_video": {"status": "not_started"},
+        "x_text": {"status": "not_started"},
+        "x_video": {"status": "not_started"},
+        "xiaohongshu_text": {"status": "not_started"},
+        "xiaohongshu_video": {"status": "not_started"}
+      }
+    },
+    {
+      "topic_id": "20260820-02",
+      "topic": "LLM-as-a-Verifier：让 Agent 不只会做，还会选、会停、会纠错",
+      "content_date": "2026-08-20",
+      "note": "图文三平台均有发布记录；小红书新版已由账号列表和登录态详情确认，但匿名直链仍待补。短视频 MP4 已生成，尚未发布。",
+      "cells": {
+        "wechat_text": {"status": "published", "published_at": "2026-08-20 18:48", "url": "https://mp.weixin.qq.com/s/YNIePr4aij7DaIf_1muO2Q", "evidence": "公众号后台发表记录与公开 URL"},
+        "wechat_video": {"status": "not_started"},
+        "x_text": {"status": "published", "published_at": "2026-08-20", "urls": [{"label": "X Article", "url": "https://x.com/Jackc9dnm/status/2090393737197400504"}, {"label": "配套短帖", "url": "https://x.com/Jackc9dnm/status/2090394736934965252"}], "evidence": "两个公开 URL 均由 X 页面回读确认"},
+        "x_video": {"status": "not_started"},
+        "xiaohongshu_text": {"status": "published_unverified", "published_at": "2026-08-20", "evidence_url": "https://www.xiaohongshu.com/user/profile/6382b859000000001f014e23", "evidence": "账号主页 / 登录态详情确认新版笔记存在；公开笔记直链待补"},
+        "xiaohongshu_video": {"status": "not_started"}
+      }
+    },
+    {
+      "topic_id": "20260820-01",
+      "topic": "Qwen3.8-27B 与 Agent 编程现实",
+      "content_date": "2026-08-20",
+      "note": "当前已核验 X Article；其他平台和短视频未见正式公开记录。",
+      "cells": {
+        "wechat_text": {"status": "not_started"},
+        "wechat_video": {"status": "not_started"},
+        "x_text": {"status": "published", "published_at": "2026-08-20", "url": "https://x.com/Jackc9dnm/status/2090132862490361881", "evidence": "X Article 公开页 DOM 核验"},
+        "x_video": {"status": "not_started"},
+        "xiaohongshu_text": {"status": "not_started"},
+        "xiaohongshu_video": {"status": "not_started"}
+      }
+    },
+    {
+      "topic_id": "20260819-02",
+      "topic": "开源记忆 Hindsight：AI 终于会学习了",
+      "content_date": "2026-08-19",
+      "note": "X Article 已公开；公众号仍在管理员验证链路；短视频在小红书 / 视频号有提交记录，X 视频因当天额度失败。视频号公开链接暂无法独立取得。",
+      "extra_publications": [
+        {"platform": "微信视频号", "format": "视频", "status": "submitted", "published_at": "2026-08-20 11:52", "evidence": "视频号内容管理列表；原创审核中；公开链接待平台提供"},
+        {"platform": "微信视频号", "format": "视频", "status": "published_unverified", "published_at": "2026-08-20 10:47", "evidence": "视频号内容管理列表；原视频保留；公开链接待平台提供"}
+      ],
+      "cells": {
+        "wechat_text": {"status": "submitted", "evidence": "已进入正式号管理员验证步骤；公开 URL 待核验"},
+        "wechat_video": {"status": "not_applicable", "evidence": "视频号记录见本主题下方额外发布记录"},
+        "x_text": {"status": "published", "published_at": "2026-08-20", "urls": [{"label": "中文 Article", "url": "https://x.com/Jackc9dnm/status/2090120981889335321"}, {"label": "English Article", "url": "https://x.com/Jackc9dnm/status/2090130183860945176"}], "evidence": "X Article 公开 DOM 核验"},
+        "x_video": {"status": "failed", "evidence": "视频上传后发布失败：当天 X 发帖额度耗尽；没有公开 status URL"},
+        "xiaohongshu_text": {"status": "not_started"},
+        "xiaohongshu_video": {"status": "submitted", "published_at": "2026-08-20 02:51", "evidence": "Creator 笔记管理显示提交成功 / 审核中；公开链接待补"}
+      }
+    },
+    {
+      "topic_id": "20260818-01",
+      "topic": "Honcho 到底怎样形成长期记忆：从消息队列、表示层到 Dreaming 的源码解剖",
+      "content_date": "2026-08-18",
+      "note": "公众号与 X Article 已公开；小红书图文曾发布但公开笔记链接待核验；视频尚未完成公开链接回填。",
+      "cells": {
+        "wechat_text": {"status": "published", "published_at": "2026-08-19 23:40", "url": "https://mp.weixin.qq.com/s/qOY85NhYQMUMNfNsE2EwEw", "evidence": "公众号发表记录与公开 URL"},
+        "wechat_video": {"status": "not_started"},
+        "x_text": {"status": "published", "published_at": "2026-08-19", "urls": [{"label": "English Article", "url": "https://x.com/Jackc9dnm/status/2089953174715302383"}, {"label": "中文 Article", "url": "https://x.com/Jackc9dnm/status/2089954118647550246"}], "evidence": "X Article 页面核验"},
+        "x_video": {"status": "not_started"},
+        "xiaohongshu_text": {"status": "published_unverified", "evidence": "历史命令返回成功，但尚未记录公开笔记 URL"},
+        "xiaohongshu_video": {"status": "submitted", "published_at": "2026-08-20", "evidence": "Creator 笔记管理曾显示提交/审核中；公开链接待补"}
+      }
+    }
+  ]
+}
